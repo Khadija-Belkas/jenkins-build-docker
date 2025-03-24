@@ -12,10 +12,10 @@ node {
     }
 
     stage('Run image') {
-        container = docker.image('xavki/nginx').run('-p 8095:80')
+        container = docker.image('xavki/nginx').run('-p 8096:80')
         containerId = container.getId()
         bat 'docker ps'
-        bat 'curl http://localhost:8095'
+        bat 'curl http://localhost:8096'
     }
 
     stage('Stop container') {
