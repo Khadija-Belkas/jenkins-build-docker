@@ -19,8 +19,7 @@ node {
     }
 
     stage('Stop container') {
-        def id = container.getId()
-        echo "Container ID: ${id}"
-        bat "docker stop ${id}"
+        bat 'for /f %%i in ("docker ps -q -f "ancestor=xavki/nginx"") do docker stop %%i'
     }
-}
+
+    }
