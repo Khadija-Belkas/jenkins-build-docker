@@ -1,6 +1,7 @@
 node {
     def app
     def container
+    def containerId
 
     stage('Clone') {
         checkout scm
@@ -11,12 +12,14 @@ node {
     }
 
     stage('Run image') {
-        container = docker.image('xavki/nginx').run('-p 8092:80')
+        container = docker.image('xavki/nginx').run('-p 8093:80')
+        containerId = container.getId()
         bat 'docker ps'
-        bat 'curl http://localhost:8092'
+        bat 'curl http://localhost:8093'
     }
 
     stage('Stop container') {
-        bat "docker stop ${container.id}"
+        echo "Stopping container ID: ${containerId}"
+        bat "docker stop ${containerId}"
     }
 }
